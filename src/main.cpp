@@ -1,7 +1,7 @@
 #include <M5Unified.h>
 #include "imu_sensor.h"
 
-#define BAUDRATE 115200
+#define BAUDRATE 19200
 #define DATA_UPDATE_MS 100
 
 // multi-task
@@ -43,11 +43,12 @@ void loop() {
   pitch = imuS.s_pitch();
   yaw = imuS.s_yaw();
 
-  Serial.printf("%6.2f %6.2f %6.2f\n", yaw, roll, pitch);
+  // change format up to reveiver
+  Serial.printf("%5.1f,%5.1f,%5.1f\n", roll, pitch, yaw);
 
   M5.Display.fillScreen(BLACK);
-  M5.Display.setCursor(20, 20);
-  M5.Display.printf("Y: %6.2f\nR: %6.2f\nP: %6.2f\n", yaw, roll, pitch);
+  M5.Display.setCursor(0, 20);
+  M5.Display.printf(" R: %6.2f\n P: %6.2f\n Y: %6.2f\n", roll, pitch, yaw);
 
   delay(DATA_UPDATE_MS);
 }
